@@ -1,0 +1,48 @@
+# Node.js dependencies
+frontend/node_modules/
+frontend/npm-debug.log
+frontend/yarn-error.log
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# Logs
+frontend/logs/
+frontend/*.log
+
+# OS generated files
+frontend/.DS_Store
+frontend/Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Environment variables
+frontend/.env
+
+# Temporary files
+frontend/tmp/
+frontend/temp/
+
+
+# Node.js dependencies
+backend/node_modules/
+backend/npm-debug.log
+backend/yarn-error.log
+
+# Environment variables
+backend/.env
+
+# Logs
+backend/logs/
+backend/*.log
+
+# OS generated files
+backend/.DS_Store
+backend/Thumbs.db
+
+# Build output
+frontend/dist/
+frontend/build/
