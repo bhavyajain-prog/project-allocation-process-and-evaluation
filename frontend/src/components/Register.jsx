@@ -19,14 +19,17 @@ const Register = () => {
       return;
     }
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth/register", {
-        name,
-        username,
-        password,
-        role,
-        email,
-        phone,
-      });
+      const { data } = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          name,
+          username,
+          password,
+          role,
+          email,
+          phone,
+        }
+      );
       if (!data.registered) {
         setSuccess("");
         setError(data.message);
@@ -71,7 +74,7 @@ const Register = () => {
         <input
           type="text"
           placeholder="Enter your phone number"
-          value={email}
+          value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
         />

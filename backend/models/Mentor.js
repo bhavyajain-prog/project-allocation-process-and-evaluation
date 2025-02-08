@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
 const MentorSchema = new mongoose.Schema({
-  empNo: { type: String, required: true }, // From "Emp No"
-  name: { type: String, required: true }, // From "Name"
-  department: { type: String, required: true }, // From "Department"
-  designation: { type: String, required: true }, // From "Designation"
-  qualifications: { type: String, default: "" }, // Will be added later
+  empNo: { type: String, required: true },
+  name: { type: String, required: true },
+  department: { type: String, required: true },
+  designation: { type: String, required: true },
+  qualifications: { type: String, default: "" },
+  teams: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model("Mentor", MentorSchema);

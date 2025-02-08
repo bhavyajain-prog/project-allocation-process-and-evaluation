@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import logo from "./assets/logo.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login({ login }) {
   const [username, setUsername] = useState("");
@@ -9,6 +9,13 @@ export default function Login({ login }) {
   const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+
+  // TODO: Implement getCookie function
+  // const getCookie = (name) => {
+  //   const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+  //   return match ? decodeURIComponent(match[2]) : null;
+  // };
+  // const token = getCookie('your_cookie_name');
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -34,11 +41,8 @@ export default function Login({ login }) {
           localStorage.setItem("role", "admin");
         }
         login();
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
-
     checkLogin();
   }, [navigate, login]);
 
@@ -52,7 +56,6 @@ export default function Login({ login }) {
         { username, password, rememberMe },
         { withCredentials: true }
       );
-      console.log(response.data);
 
       if (response.data.status === "success") {
         if (response.data.role === "student") {
@@ -82,7 +85,7 @@ export default function Login({ login }) {
       <div className="logo-container">
         <img src={logo} alt="Logo" className="logo" />
       </div>
-      <div className="container">
+      <div className="container mw-500">
         <h2 className="title">Sign In</h2>
         <form onSubmit={handleLogin} className="form-container">
           <input
@@ -99,6 +102,15 @@ export default function Login({ login }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {/* <div className="options">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            <label className="rememberMe">Remember Me</label>
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div> */}
           <div className="options">
             <label className="rememberMe">
               <input
@@ -108,7 +120,7 @@ export default function Login({ login }) {
               />
               Remember Me
             </label>
-            <a onClick={() => navigate("/forgot-password")}>Forgot Password?</a>
+            <Link to="/forgot-password" className="forgotPass">Forgot Password?</Link>
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>}
           <button type="submit" className="btn-grn">

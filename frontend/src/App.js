@@ -15,6 +15,7 @@ import MentorDashboard from "./components/MentorPortal";
 import AdminDashboard from "./components/AdminPortal";
 import CreateTeam from "./components/CreateTeam";
 import JoinTeam from "./components/JoinTeam";
+import SelectTeams from "./components/SelectTeams";
 import NotFound from "./components/NotFound";
 
 const App = () => {
@@ -51,7 +52,7 @@ const App = () => {
           path="/student-dashboard"
           element={
             <PrivateRoute
-              element={<StudentDashboard />}
+              element={<StudentDashboard loggedOut={() => setRole("")} />}
               allowedRoles={["student"]}
             />
           }
@@ -72,7 +73,7 @@ const App = () => {
           path="/admin-dashboard"
           element={
             <PrivateRoute
-              element={<AdminDashboard />}
+              element={<AdminDashboard loggedOut={() => setRole("")} />}
               allowedRoles={["admin"]}
             />
           }
@@ -81,9 +82,15 @@ const App = () => {
           path="/mentor-dashboard"
           element={
             <PrivateRoute
-              element={<MentorDashboard />}
+              element={<MentorDashboard loggedOut={() => setRole("")} />}
               allowedRoles={["mentor"]}
             />
+          }
+        />
+        <Route
+          path="select-teams"
+          element={
+            <PrivateRoute element={<SelectTeams />} allowedRoles={["mentor"]} />
           }
         />
         <Route

@@ -104,22 +104,23 @@ router.get("/teams", validateToken, async (req, res) => {
     const teams = await Team.find({
       confirmedMentor: null,
       requiresAdmin: false,
-      mentorChoices: mentorName,
-      currentChoiceIndex: {
-        $eq: { $indexOfArray: ["$mentorChoices", mentorName] },
-      },
     });
 
-    res.status(200).json({ teams });
+    let filtered = teams.filter(
+      (team) => mentorName === team.mentorChoices[team.currentChoiceIndex]
+    );
+
+    res.status(200).json({ teams: filtered });
   } catch (err) {
     res.status(500).json({ error: "Error fetching teams: " + err.message });
   }
 });
 
-router.post("/team/:teamId/reject", validateToken, async (req, res) => {
+router.post("/team/:teamcode/reject", validateToken, async (req, res) => {
   try {
     const mentorName = req.user.name;
-    const team = await Team.findById(req.params.teamId);
+
+    const [team] = await Team.find({ code: req.params.teamcode });
 
     if (!team) {
       return res.status(404).json({ message: "Team not found" });
@@ -128,6 +129,7 @@ router.post("/team/:teamId/reject", validateToken, async (req, res) => {
     if (team.mentorChoices[team.currentChoiceIndex] !== mentorName) {
       return res.status(403).json({ message: "You cannot reject this team." });
     }
+    console.log("Condition 1");
 
     // Handle rejection
     if (team.currentChoiceIndex + 1 < team.mentorChoices.length) {
@@ -135,6 +137,7 @@ router.post("/team/:teamId/reject", validateToken, async (req, res) => {
     } else {
       team.requiresAdmin = true;
     }
+    console.log("End!!");
 
     await team.save();
     res.status(200).json({ message: "Team rejected and processed further." });
@@ -143,10 +146,10 @@ router.post("/team/:teamId/reject", validateToken, async (req, res) => {
   }
 });
 
-router.post("/team/:teamId/accept", validateToken, async (req, res) => {
+router.post("/team/:teamcode/accept", validateToken, async (req, res) => {
   try {
     const mentorName = req.user.name;
-    const team = await Team.findById(req.params.teamId);
+    const [team] = await Team.find({ code: req.params.teamcode });
 
     if (!team) {
       return res.status(404).json({ message: "Team not found" });

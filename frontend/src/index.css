@@ -1,0 +1,276 @@
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  padding: 10px;
+  margin: 7px 0;
+  background-color: #0f9fe2;
+  border-radius: 7px;
+  transition: background-color 0.3s;
+}
+
+a:hover {
+  background-color: #0c7bb3;
+}
+
+/* Logo Container */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.logo {
+  max-width: 100px;
+  height: auto;
+}
+
+/* Main Container */
+.container {
+  margin: 0 20px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.mw-500 {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form Styles */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container input,
+.form-container textarea {
+  margin-bottom: 20px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: auto;
+}
+
+.form-container textarea {
+  margin-bottom: 0;
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.rememberMe {
+  margin-bottom: 10px;
+}
+
+/* Error Message */
+p {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: red;
+}
+
+/* Button */
+.btn-grn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-grn:hover {
+  background-color: #218838;
+}
+
+/* Dev Container */
+.dev-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #b02a37;
+}
+
+.redirect-lnk {
+  display: inline-block;
+  margin: 10px 10px;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #17a2b8;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.redirect-lnk:hover {
+  background-color: #117a8b;
+}
+
+input[type="file"] {
+  margin: 20px auto;
+  display: block;
+}
+
+.link-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgotPass {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: inherit;
+  transition: none;
+}
+
+.forgotPass:hover {
+  background-color: inherit;
+  text-decoration: underline;
+}
+
+.input-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-button-container input {
+  margin-bottom: 20px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.input-button-container input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.input-button-container input,
+.input-button-container button {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.team-row {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.team-row:hover {
+  background-color: #f1f1f1;
+}
+
+.team-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-details {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.team-details.active {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.team-details > p {
+  margin-top: 10px;
+}
+
+.approve-btn,
+.reject-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.approve-btn {
+  background-color: #6ec3c7;
+  color: #fff;
+}
+
+.reject-btn {
+  background-color: #e57373;
+  color: #fff;
+}
+
+.approve-btn:hover {
+  background-color: #5aa9ad;
+}
+
+.reject-btn:hover {
+  background-color: #d45a5a;
+}

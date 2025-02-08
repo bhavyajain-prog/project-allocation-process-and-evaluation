@@ -28,6 +28,8 @@ const team = require("./routes/team");
 app.use("/api/team", team);
 const mentor = require("./routes/mentor");
 app.use("/api/mentor", mentor);
+const student = require("./routes/student");
+app.use("/api/student", student);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

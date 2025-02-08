@@ -28,8 +28,6 @@ export default function Home({ loggedOut }) {
       }
     } catch (error) {
       alert("File upload failed");
-      console.log(error);
-      
     }
   };
 
@@ -67,6 +65,12 @@ export default function Home({ loggedOut }) {
       <input
         type="file"
         id="file"
+        accept=".csv"
+        onChange={(e) => setFile(e.target.files[0])}
+      />
+      <input
+        type="file"
+        id="file2"
         accept=".csv"
         onChange={(e) => setFile(e.target.files[0])}
       />

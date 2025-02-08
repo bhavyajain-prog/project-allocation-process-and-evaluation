@@ -75,6 +75,11 @@ export default function CreateTeam() {
           [name]: value,
         },
       }));
+    } else if (field === "batch") {
+      setFormData((prevData) => ({
+        ...prevData,
+        batch: e.target.value,
+      }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
@@ -148,12 +153,12 @@ export default function CreateTeam() {
         <h2 className="title">Project Details</h2>
         <form onSubmit={createTeam} className="form-container">
           <div className="form-group">
-            <label htmlFor="code">Team Code</label>
+            <label htmlFor="code">Team Code: </label>
             <input type="text" id="code" value={code} required disabled />
           </div>
           <div className="form-group">
             <h3>Leader Details</h3>
-            <label htmlFor="leader-name">Leader Name:</label>
+            <label htmlFor="leader-name">Leader Name: </label>
             <input
               type="text"
               id="leader-name"
@@ -161,7 +166,8 @@ export default function CreateTeam() {
               value={formData.leader.name}
               onChange={(e) => handleChange(e, "name")}
             />
-            <label htmlFor="leader-email">Leader Email:</label>
+            <br />
+            <label htmlFor="leader-email">Leader Email: </label>
             <input
               type="email"
               id="leader-email"
@@ -169,7 +175,8 @@ export default function CreateTeam() {
               value={formData.leader.email}
               onChange={(e) => handleChange(e, "email")}
             />
-            <label htmlFor="leader-phone">Leader Phone:</label>
+            <br />
+            <label htmlFor="leader-phone">Leader Phone: </label>
             <input
               type="text"
               id="leader-phone"
@@ -177,7 +184,8 @@ export default function CreateTeam() {
               value={formData.leader.phone}
               onChange={(e) => handleChange(e, "phone")}
             />
-            <label htmlFor="leader-rollNumber">Leader Roll Number:</label>
+            <br />
+            <label htmlFor="leader-rollNumber">Leader Roll Number: </label>
             <input
               type="text"
               id="leader-rollNumber"
@@ -185,7 +193,8 @@ export default function CreateTeam() {
               value={formData.leader.rollNumber}
               onChange={(e) => handleChange(e, "rollNumber")}
             />
-            <label htmlFor="leader-rollNumber">Batch:</label>
+            <br />
+            <label htmlFor="batch">Batch: </label>
             <input
               type="text"
               id="batch"
@@ -196,7 +205,7 @@ export default function CreateTeam() {
           </div>
           <div className="form-group">
             <h3>Project 1 Details</h3>
-            <label>Title:</label>
+            <label>Title: </label>
             <input
               type="text"
               name="title"
@@ -204,14 +213,16 @@ export default function CreateTeam() {
               value={formData.project1.title}
               onChange={(e) => handleChange(e, "project1")}
             />
-            <label>Description:</label>
+            <br />
+            <label>Description: </label>
             <textarea
               name="description"
               placeholder="Enter Project 1 Description"
               value={formData.project1.description}
               onChange={(e) => handleChange(e, "project1")}
             />
-            <label>Technology:</label>
+            <br />
+            <label>Technology: </label>
             <input
               type="text"
               name="technology"
@@ -222,7 +233,7 @@ export default function CreateTeam() {
           </div>
           <div className="form-group">
             <h3>Project 2 Details</h3>
-            <label>Title:</label>
+            <label>Title: </label>
             <input
               type="text"
               name="title"
@@ -230,14 +241,16 @@ export default function CreateTeam() {
               value={formData.project2.title}
               onChange={(e) => handleChange(e, "project2")}
             />
-            <label>Description:</label>
+            <br />
+            <label>Description: </label>
             <textarea
               name="description"
               placeholder="Enter Project 2 Description"
               value={formData.project2.description}
               onChange={(e) => handleChange(e, "project2")}
             />
-            <label>Technology:</label>
+            <br />
+            <label>Technology: </label>
             <input
               type="text"
               name="technology"

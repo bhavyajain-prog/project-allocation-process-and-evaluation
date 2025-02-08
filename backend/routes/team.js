@@ -96,7 +96,6 @@ router.post("/join", async (req, res) => {
     if (!decoded || decoded.role !== "student") {
       return res.status(403).json({ error: "Forbidden" });
     }
-    // console.log(decoded);
 
     // Find the student in User db
     const user = await User.findById(decoded.id);
@@ -137,6 +136,36 @@ router.post("/join", async (req, res) => {
     }
 
     res.status(200).json({ message: "Joined team successfully" });
+  } catch (err) {
+    console.error("Error joining team:", err);
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: err.message });
+  }
+});
+
+router.post("/get-team", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const decoded = JWT.verify(token, process.env.JWT_SECRET);
+    if (!decoded || decoded.role !== "student") {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+
+    const student = await Student.findOne({ email: decoded.email });
+    if (!student) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    const team = await Team.findOne({ code: student.teamCode });
+    if (!team) {
+      return res.status(404).json({ error: "Team not found" });
+    }
+
+    res.status(200).json({ team });
   } catch (err) {
     res
       .status(500)

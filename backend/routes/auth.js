@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const mailer = require("nodemailer");
 const User = require("../models/User");
-const Student = require("../models/Student");
 
 const router = express.Router();
 
@@ -111,34 +110,6 @@ router.post("/register", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: "Server Error! Please try again later" });
-  }
-});
-
-router.post("/register2", async (req, res) => {
-  const { email } = req.body;
-  const username = email.substring(0, email.indexOf("@"));
-  try {
-    const student = await Student.find({ email });
-    if (student.length === 0) {
-      return res.status(400).json({ message: "Student not found" });
-    }
-
-    const newUser = new User({
-      name: student[0].name,
-      username,
-      email,
-      password: await bcrypt.hash("test123", 10),
-      role: "student",
-    });
-
-    await newUser.save();
-
-    res.status(200).json({
-      message: "User registered successfully",
-      registered: true,
-    });
-  } catch (err) {
-    console.log(err);
   }
 });
 
