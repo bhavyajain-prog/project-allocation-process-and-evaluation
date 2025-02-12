@@ -98,6 +98,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
+// To get teams which is to be accepted or rejected by mentor
 router.get("/teams", validateToken, async (req, res) => {
   try {
     const mentorName = req.user.name;

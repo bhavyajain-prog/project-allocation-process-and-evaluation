@@ -6,7 +6,7 @@ const MentorSchema = new mongoose.Schema({
   department: { type: String, required: true },
   designation: { type: String, required: true },
   qualifications: { type: String, default: "" },
-  teams: { type: Number, default: 0 },
+  teams: { type: Number, default: 0 }, // TODO: Probably be updated to team codes array
 });
 
 module.exports = mongoose.model("Mentor", MentorSchema);

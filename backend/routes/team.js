@@ -144,6 +144,7 @@ router.post("/join", async (req, res) => {
   }
 });
 
+// TODO: verify the route
 router.post("/get-team", async (req, res) => {
   try {
     const token = req.cookies.token;
@@ -166,6 +167,47 @@ router.post("/get-team", async (req, res) => {
     }
 
     res.status(200).json({ team });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: err.message });
+  }
+});
+// TODO: verify the route
+router.post("/leave", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const decoded = JWT.verify(token, process.env.JWT_SECRET);
+    if (!decoded || decoded.role !== "student") {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+
+    const user = await User.findById(decoded.id);
+
+    const student = await Student.findOne({ email: user.email });
+    if (!student) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    const team = await Team.findOne({ code: student.teamCode });
+    if (!team) {
+      return res.status(404).json({ error: "Team not found" });
+    }
+
+    // Remove student from team
+    team.members = team.members.filter(
+      (member) => member.rollNumber !== student.rollNumber
+    );
+    await team.save();
+
+    // Update student's teamCode
+    student.teamCode = null;
+    await student.save();
+
+    res.status(200).json({ message: "Left team successfully" });
   } catch (err) {
     res
       .status(500)

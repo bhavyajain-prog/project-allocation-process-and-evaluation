@@ -30,6 +30,8 @@ const mentor = require("./routes/mentor");
 app.use("/api/mentor", mentor);
 const student = require("./routes/student");
 app.use("/api/student", student);
+const admin = require("./routes/admin");
+app.use("/api/admin", admin);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

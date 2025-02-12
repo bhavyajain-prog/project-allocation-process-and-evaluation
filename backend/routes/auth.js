@@ -112,7 +112,6 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ error: "Server Error! Please try again later" });
   }
 });
-
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
   try {
@@ -143,9 +142,10 @@ router.post("/forgot-password", async (req, res) => {
     res.status(500).json({ error: "Server Error! Please try again later" });
   }
 });
-// TODO: Verify the route for reset-password
+
 router.post("/reset-password", async (req, res) => {
   const { token, newPassword } = req.body;
+
   try {
     const decoded = JWT.verify(token, process.env.JWT_SECRET);
     const hashedPassword = await bcrypt.hash(newPassword, 10);

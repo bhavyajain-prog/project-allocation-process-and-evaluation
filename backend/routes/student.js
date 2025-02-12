@@ -35,11 +35,11 @@ const processCSV = (filePath) => {
 
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
-    await processMentorCSV(req.file.path);
+    await processCSV(req.file.path);
     fs.unlinkSync(req.file.path); // Remove the uploaded file after processing
-    res.status(200).send("Mentor details uploaded successfully!");
+    res.status(200).send("Student details uploaded successfully!");
   } catch (error) {
-    res.status(500).send("Error processing mentor file: " + error.message);
+    res.status(500).send("Error processing the file: " + error.message);
   }
 });
 

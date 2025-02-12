@@ -35,7 +35,8 @@ const teamSchema = new Schema(
     mentorChoices: [{ type: String, required: true }],
     currentChoiceIndex: { type: Number, default: 0 },
     confirmedMentor: { type: String, default: null },
-    requiresAdmin: { type: Boolean, default: false },
+    requiresAdmin: { type: Boolean, default: true },
+    feedback: { type: String, default: "" },
   },
   { timestamps: true }
 );
