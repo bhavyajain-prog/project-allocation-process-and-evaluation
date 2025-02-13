@@ -25,6 +25,32 @@ export default function SelectTeams() {
     setOpenTeamIndex(openTeamIndex === index ? null : index);
   };
 
+  const approveTeam = async (code) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/mentor/team/${code}/accept`,
+        { withCredentials: true }
+      );
+      console.log("Approved team: ", code);
+      //TODO: update frontend to display message on screen
+    } catch (error) {
+      console.error("Error connecting to the server: ", error);
+    }
+  };
+
+  const rejectTeam = async (code) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/mentor/team/${code}/reject`,
+        { withCredentials: true }
+      );
+      console.log("Rejected team: ", code);
+      //TODO: update frontend to display message on screen
+    } catch (error) {
+      console.error("Error connecting to the server: ", error);
+    }
+  };
+
   return (
     <div>
       <div className="logo-container">
@@ -50,8 +76,18 @@ export default function SelectTeams() {
                     <strong>Project Title:</strong> {team.projectTitle}
                   </span>
                   <div>
-                    <button className="approve-btn">Approve</button>
-                    <button className="reject-btn">Reject</button>
+                    <button
+                      className="approve-btn"
+                      onClick={approveTeam(team.code)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="reject-btn"
+                      onClick={rejectTeam(team.code)}
+                    >
+                      Reject
+                    </button>
                   </div>
                 </div>
                 <div

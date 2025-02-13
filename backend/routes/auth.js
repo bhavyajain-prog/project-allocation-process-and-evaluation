@@ -72,7 +72,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: "Server Error! Please try again later" });
   }
 });
-router.get("/logout", (req, res) => {
+router.get("/logout", (_, res) => {
   res.clearCookie("token");
   res.status(200).json({ message: "Logged out successfully" });
 });

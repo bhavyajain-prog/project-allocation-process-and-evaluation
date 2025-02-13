@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./models/User");
+const bcrypt = require("bcrypt");
 
 const connectDB = async () => {
   try {
@@ -130,6 +131,11 @@ const addUsers = () => {
   users.forEach(async (user) => {
     try {
       const newUser = new User(user);
+      newUser.username = newUser.username.toLowerCase();
+      newUser.email = newUser.email.toLowerCase();
+      const password = newUser.password;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      newUser.password = hashedPassword;
       await newUser.save();
       //   console.log("User added successfully");
     } catch (error) {
