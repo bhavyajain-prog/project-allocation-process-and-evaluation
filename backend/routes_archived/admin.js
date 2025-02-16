@@ -4,6 +4,15 @@ const Mentor = require("../models/Mentor");
 
 const router = express.Router();
 
+router.get("/all-teams", async (_, res) => {
+  try {
+    const teams = await Team.find();
+    res.json(teams);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 router.get("/all-teams-left", async (_, res) => {
   try {
     const teams = await Team.find({ requiresAdmin: true });
@@ -43,26 +52,26 @@ router.post("/reject-team/:teamCode", async (req, res) => {
   }
 });
 router.get("/available-mentors", async (_, res) => {
-    try {
-        const mentors = await Mentor.find({ teams: { $lt: 3 } });
-        res.status(200).json(mentors);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+  try {
+    const mentors = await Mentor.find({ teams: { $lt: 3 } });
+    res.status(200).json(mentors);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 router.post("/allocate-mentor/:teamCode", async (req, res) => {
-    try {
-        const teamCode = req.params.teamCode;
-        const mentorName = req.body.mentorName;
-        const team = await Team.findOne({ code: teamCode });
-        if (!team) {
-            return res.status(404).json({ message: "Team not found" });
-        }
-        team.confirmedMentor = mentorName;
-        await team.save();
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+  try {
+    const teamCode = req.params.teamCode;
+    const mentorName = req.body.mentorName;
+    const team = await Team.findOne({ code: teamCode });
+    if (!team) {
+      return res.status(404).json({ message: "Team not found" });
     }
+    team.confirmedMentor = mentorName;
+    await team.save();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;

@@ -3,44 +3,50 @@ const Schema = mongoose.Schema;
 
 // Project Schema
 const projectSchema = new Schema({
-  name: { required: true, type: String },
-  description: { required: true, type: String },
-  techStack: { required: true, type: String },
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  techStack: { type: String, required: true },
 });
 
 // Team Schema
 const teamSchema = new Schema(
   {
-    code: { required: true, type: String, unique: true },
+    code: { type: String, required: true, unique: true },
     // Leader Details
     leader: {
-      name: { required: true, type: String },
-      email: { required: true, type: String },
-      phone: { required: true, type: String },
-      rollNumber: { required: true, type: String },
+      name: { type: String, required: true },
+      email: { type: String, required: true },
+      phone: { type: String, required: true },
+      rollNumber: { type: String, required: true },
     },
     // Batch
-    batch: { required: true, type: String },
+    batch: { type: String, required: true },
     // Team Members
     members: [
       {
-        name: { required: true, type: String },
-        rollNumber: { required: true, type: String },
+        name: { type: String, required: true },
+        rollNumber: { type: String, required: true },
       },
     ],
     // Project Details
-    projectChoices: [projectSchema],
-    confirmedProject: { type: projectSchema, default: null },
+    projectChoices: [{ type: Schema.Types.ObjectId, ref: "Project" }], // Reference to projects
+    confirmedProject: {
+      type: Schema.Types.ObjectId,
+      ref: "Project",
+      default: null,
+    }, // Reference instead of embedding
     // Mentor Choices
-    mentorChoices: [{ type: String, required: true }],
+    mentorChoices: [{ type: Schema.Types.ObjectId, ref: "Mentor" }], // Store references instead of plain strings
     currentChoiceIndex: { type: Number, default: 0 },
-    confirmedMentor: { type: String, default: null },
+    confirmedMentor: {
+      type: Schema.Types.ObjectId,
+      ref: "Mentor",
+      default: null,
+    }, // Store reference instead of a string
     requiresAdmin: { type: Boolean, default: true },
     feedback: { type: String, default: "" },
   },
   { timestamps: true }
 );
 
-// Models
-const Team = mongoose.model("Team", teamSchema);
-module.exports = Team;
+module.exports = mongoose.model("Team", teamSchema);

@@ -215,4 +215,50 @@ router.post("/leave", async (req, res) => {
   }
 });
 
+// TODO: verify
+router.get("/status", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const decoded = JWT.verify(token, process.env.JWT_SECRET);
+    if (!decoded || decoded.role !== "student") {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+
+    const student = await Student.findOne({ email: decoded.email });
+    if (!student) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    const team = await Team.findOne({ code: student.teamCode });
+    if (!team) {
+      return res.status(404).json({ error: "Team not found" });
+    }
+
+    // Check admin approval
+    if (!team.adminApproval) {
+      return res.status(403).json({ message: "Not approved by mentor yet" });
+    }
+
+    // If a mentor is confirmed (not null), return the confirmed mentor's name
+    if (team.confirmedMentor !== null) {
+      return res.json({ confirmedMentor: team.confirmedMentor });
+    }
+
+    // If no mentor is confirmed, return available choices and current choice
+    return res.json({
+      mentorChoices: team.mentorChoices || [],
+      currentChoiceIndex: team.currentChoiceIndex || 0,
+    });
+
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: err.message });
+  }
+});
+
+
 module.exports = router;
