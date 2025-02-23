@@ -23,15 +23,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 const auth = require("./routes/auth");
-app.use("/api/auth", auth);
 const team = require("./routes/team");
-app.use("/api/team", team);
 const mentor = require("./routes/mentor");
-app.use("/api/mentor", mentor);
 const student = require("./routes/student");
-app.use("/api/student", student);
 const admin = require("./routes/admin");
-app.use("/api/admin", admin);
+const api = require("./routes/api");
+
+app.use("/api", api);
+app.use("/auth", auth);
+app.use("/team", team);
+app.use("/mentor", mentor);
+app.use("/student", student);
+app.use("/admin", admin);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
