@@ -1,5 +1,4 @@
 const express = require("express");
-const JWT = require("jsonwebtoken");
 const Student = require("../models/Student");
 const Team = require("../models/Team");
 // const Eval = require("../models/Evaluation");

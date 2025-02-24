@@ -26,6 +26,9 @@ frontend/.env
 frontend/tmp/
 frontend/temp/
 
+# package-lock.json
+frontend/package-lock.json
+
 
 # Node.js dependencies
 backend/node_modules/
@@ -42,6 +45,9 @@ backend/*.log
 # OS generated files
 backend/.DS_Store
 backend/Thumbs.db
+
+# package-lock.json
+backend/package-lock.json
 
 # Build output
 frontend/dist/
