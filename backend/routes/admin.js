@@ -1,95 +1,120 @@
 const express = require("express");
 const multer = require("multer");
+const XLSX = require("xlsx");
+const asyncHandler = require("express-async-handler"); // Handles async errors gracefully
 
-const Project = require("../models/Project");
+const Student = require("../models/Student");
+const Mentor = require("../models/Mentor");
+const Team = require("../models/Team");
+const Project = require("../models/ProjectBank");
 
 const router = express.Router();
+
+// Multer storage configuration
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "text/csv",
+    ];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only CSV and Excel files are allowed"));
+    }
   },
 });
 
-const upload = multer({ storage: storage });
-
-router.get("/project-bank", async (req, res) => {
-  try {
+// 📥 Fetch all projects from Project Bank
+router.get(
+  "/project-bank",
+  asyncHandler(async (req, res) => {
     const projects = await Project.find();
-    res.json(projects);
-  } catch (error) {
-    res.json({ message: error });
-  }
-});
+    res.status(200).json(projects);
+  })
+);
 
-router.post("/upload", upload.single("file"), async (req, res) => {
-  try {
+// 📤 Upload CSV/Excel File
+router.post(
+  "/upload",
+  upload.single("file"),
+  asyncHandler(async (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const { type } = req.body;
     const filePath = req.file.path;
+
     const workbook = XLSX.readFile(filePath);
     const sheetName = workbook.SheetNames[0];
     const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
-    // Example: Detect which collection to insert data into
-    if (req.body.type === "student") {
-      await Student.insertMany(data);
-    } else if (req.body.type === "mentor") {
-      await Mentor.insertMany(data);
-    } else if (req.body.type === "team") {
-      await Team.insertMany(data);
-    } else {
+    const collectionMap = {
+      student: Student,
+      mentor: Mentor,
+      team: Team,
+    };
+
+    const Model = collectionMap[type];
+    if (!Model) {
       return res.status(400).json({ error: "Invalid data type provided" });
     }
 
-    res
-      .status(200)
-      .json({ message: "File processed and data stored successfully!" });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "File processing failed", details: error.message });
-  }
-});
+    await Model.insertMany(data);
+    res.status(200).json({ message: `${type} data uploaded successfully.` });
+  })
+);
 
-// Flush all data from a specific collection
-router.delete("/flush/:type", async (req, res) => {
-  try {
+// 🗑️ Flush data from a specific collection
+router.delete(
+  "/flush/:type",
+  asyncHandler(async (req, res) => {
     const { type } = req.params;
 
-    if (type === "student") {
-      await Student.deleteMany({});
-    } else if (type === "mentor") {
-      await Mentor.deleteMany({});
-    } else if (type === "team") {
-      await Team.deleteMany({});
-    } else {
+    const collectionMap = {
+      student: Student,
+      mentor: Mentor,
+      team: Team,
+    };
+
+    const Model = collectionMap[type];
+    if (!Model) {
       return res.status(400).json({ error: "Invalid collection type" });
     }
 
+    await Model.deleteMany({});
     res
       .status(200)
       .json({ message: `${type} collection deleted successfully.` });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to delete data", details: error.message });
-  }
-});
+  })
+);
 
-// Flush all collections
-router.delete("/flush-all", async (req, res) => {
-  try {
+// 🗑️ Flush all collections
+router.delete(
+  "/flush-all",
+  asyncHandler(async (req, res) => {
     await Promise.all([
       Student.deleteMany({}),
       Mentor.deleteMany({}),
       Team.deleteMany({}),
     ]);
 
-    res.status(200).json({ message: "All data deleted successfully." });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to delete the data", details: error.message });
-  }
+    res.status(200).json({ message: "All collections deleted successfully." });
+  })
+);
+
+// 🌍 Global Error Handler Middleware
+router.use((err, req, res, next) => {
+  res.status(500).json({
+    error: err.message || "An unexpected error occurred",
+  });
 });
+
+module.exports = router;

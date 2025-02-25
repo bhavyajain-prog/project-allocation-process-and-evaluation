@@ -52,3 +52,5 @@ backend/package-lock.json
 # Build output
 frontend/dist/
 frontend/build/
+
+/frontend-archive

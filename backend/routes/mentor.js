@@ -1,26 +1,28 @@
 const express = require("express");
-
-const Mentor = require("../models/mentor");
-
+const Mentor = require("../models/Mentor");
 const verifyRole = require("../middleware/verifyRole");
+
 const router = express.Router();
 
-// Will be used to list all the mentors as well as to be used as dropdown
-// TODO: May be make another route to only get names with the id or email for the dropdowns as selections
-router.get("/all", async (req, res) => {
+// 🔍 Get all mentors (for admin use or general listing)
+router.get("/all", verifyRole("admin"), async (req, res) => {
   try {
     const mentors = await Mentor.find();
-    res.json(mentors);
+    res.status(200).json(mentors);
   } catch (error) {
-    res.json({ message: error });
+    res
+      .status(500)
+      .json({ error: "Failed to fetch mentors", details: error.message });
   }
 });
 
-// Don't know when to use this
-router.get("/:id", async (req, res) => {
+// 🔍 Get a specific mentor by email (for admin use)
+router.get("/:email", verifyRole("admin"), async (req, res) => {
   try {
-    verifyRole(req, res, "admin");
-    const mentor = await Mentor.findOne({ email: req.params.id });
+    const mentor = await Mentor.findOne({ email: req.params.email });
+    if (!mentor) {
+      return res.status(404).json({ error: "Mentor not found" });
+    }
     res.status(200).json({ mentor });
   } catch (error) {
     res
@@ -29,15 +31,18 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/choices", async (req, res) => {
+// 🔽 Get mentor choices for dropdown (only ID, name, and email) (for student use)
+router.get("/choices", verifyRole("student"), async (req, res) => {
   try {
-    verifyRole(req, res, "student");
     const mentors = await Mentor.find({}, { _id: 1, name: 1, email: 1 });
     res.status(200).json(mentors);
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Internal server error", details: error.message });
+      .json({
+        error: "Failed to fetch mentor choices",
+        details: error.message,
+      });
   }
 });
 

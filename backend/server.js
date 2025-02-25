@@ -27,9 +27,7 @@ const team = require("./routes/team");
 const mentor = require("./routes/mentor");
 const student = require("./routes/student");
 const admin = require("./routes/admin");
-const api = require("./routes/api");
 
-app.use("/api", api);
 app.use("/auth", auth);
 app.use("/team", team);
 app.use("/mentor", mentor);

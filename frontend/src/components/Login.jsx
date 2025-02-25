@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import logo from "./assets/logo.jpg";
+import logo from "../assets/logo.jpg";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login({ login }) {
@@ -10,39 +9,45 @@ export default function Login({ login }) {
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
-  // TODO: Implement getCookie function
-  // const getCookie = (name) => {
-  //   const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-  //   return match ? decodeURIComponent(match[2]) : null;
-  // };
-  // const token = getCookie('your_cookie_name');
+  // Mock function simulating a backend role check
+  const mockCheckLogin = async () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ role: localStorage.getItem("role") || "" });
+      }, 500);
+    });
+  };
 
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/auth/user",
-          { withCredentials: true }
-        );
+        const response = await mockCheckLogin();
 
-        if (response.data.role === "") {
-          return;
-        } else if (response.data.role === "student") {
-          navigate("/student-dashboard");
-          localStorage.setItem("role", "student");
-        } else if (response.data.role === "dev") {
-          navigate("/dev-dashboard");
-          localStorage.setItem("role", "dev");
-        } else if (response.data.role === "mentor") {
-          navigate("/mentor-dashboard");
-          localStorage.setItem("role", "mentor");
-        } else if (response.data.role === "admin") {
-          navigate("/admin-dashboard");
-          localStorage.setItem("role", "admin");
+        switch (response.role) {
+          case "student":
+            navigate("/student-dashboard");
+            break;
+          case "mentor":
+            navigate("/mentor-dashboard");
+            break;
+          case "admin":
+            navigate("/admin-dashboard");
+            break;
+          case "dev":
+            navigate("/dev-dashboard");
+            break;
+          default:
+            break;
         }
-        login();
-      } catch (err) {}
+
+        if (response.role) {
+          login();
+        }
+      } catch (err) {
+        console.error("Login check failed", err);
+      }
     };
+
     checkLogin();
   }, [navigate, login]);
 
@@ -50,31 +55,25 @@ export default function Login({ login }) {
     e.preventDefault();
     setError("");
 
+    // Simulating login logic
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        { username, password, rememberMe },
-        { withCredentials: true }
-      );
-
-      if (response.data.status === "success") {
-        if (response.data.role === "student") {
-          navigate("/student-dashboard");
-          localStorage.setItem("role", "student");
-        } else if (response.data.role === "mentor") {
-          navigate("/mentor-dashboard");
-          localStorage.setItem("role", "mentor");
-        } else if (response.data.role === "admin") {
-          navigate("/admin-dashboard");
-          localStorage.setItem("role", "admin");
-        } else if (response.data.role === "dev") {
-          navigate("/dev-dashboard");
-          localStorage.setItem("role", "dev");
-        }
-        login();
+      if (username === "student" && password === "1234") {
+        localStorage.setItem("role", "student");
+        navigate("/student-dashboard");
+      } else if (username === "mentor" && password === "1234") {
+        localStorage.setItem("role", "mentor");
+        navigate("/mentor-dashboard");
+      } else if (username === "admin" && password === "1234") {
+        localStorage.setItem("role", "admin");
+        navigate("/admin-dashboard");
+      } else if (username === "dev" && password === "1234") {
+        localStorage.setItem("role", "dev");
+        navigate("/dev-dashboard");
       } else {
-        setError(response.data.message);
+        setError("Invalid credentials. Please try again.");
+        return;
       }
+      login();
     } catch (err) {
       setError("Something went wrong!");
     }
@@ -82,9 +81,6 @@ export default function Login({ login }) {
 
   return (
     <div>
-      <div className="logo-container">
-        <img src={logo} alt="Logo" className="logo" />
-      </div>
       <div className="container mw-500">
         <h2 className="title">Sign In</h2>
         <form onSubmit={handleLogin} className="form-container">
@@ -102,15 +98,6 @@ export default function Login({ login }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {/* <div className="options">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            <label className="rememberMe">Remember Me</label>
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div> */}
           <div className="options">
             <label className="rememberMe">
               <input
@@ -120,7 +107,9 @@ export default function Login({ login }) {
               />
               Remember Me
             </label>
-            <Link to="/forgot-password" className="forgotPass">Forgot Password?</Link>
+            <Link to="/forgot-password" className="forgotPass">
+              Forgot Password?
+            </Link>
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>}
           <button type="submit" className="btn-grn">
