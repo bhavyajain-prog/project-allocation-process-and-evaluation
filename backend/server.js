@@ -11,9 +11,6 @@ connectDB();
 
 const app = express();
 
-
-console.log("Allowed Origin:", process.env.CLIENT_URL);
-
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
