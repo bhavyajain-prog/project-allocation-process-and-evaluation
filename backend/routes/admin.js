@@ -66,7 +66,22 @@ router.post(
     if (!Model) {
       return res.status(400).json({ error: "Invalid data type provided" });
     }
+    // Verify the format of the uploaded file
+    const requiredFields = Object.keys(Model.schema.paths).filter(
+      (field) => field !== "_id" && field !== "__v"
+    );
 
+    const isValidFormat = data.every((row) =>
+      requiredFields.every((field) => field in row)
+    );
+
+    if (!isValidFormat) {
+      return res.status(400).json({
+      error: "Invalid file format. Please ensure the file contains all required fields.",
+      });
+    }
+
+    // Insert data into the database
     await Model.insertMany(data);
     res.status(200).json({ message: `${type} data uploaded successfully.` });
   })

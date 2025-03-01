@@ -3,6 +3,8 @@ const connectDB = require("./config/db");
 const User = require("./models/User");
 const Student = require("./models/Student");
 
+dotenv.config();
+connectDB();
 
 // Project Bank -- later csv
 // Student data -- csv
