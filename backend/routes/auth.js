@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
 
     res.status(200).json({
       message: "Login successful!",
-      user: { id: user._id, username: user.username },
+      user,
     });
   } catch (error) {
     console.error("Login error:", error.message);
@@ -104,7 +104,9 @@ router.post("/forgot-password", async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Password reset link sent to your email." });
+    res
+      .status(200)
+      .json({ message: "Password reset link sent to your email." });
   } catch (error) {
     console.error("Forgot password error:", error.message);
     res.status(500).json({ error: "Server error. Please try again later." });
@@ -138,7 +140,9 @@ router.post("/register", async (req, res) => {
   try {
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
     if (existingUser) {
-      return res.status(400).json({ error: "Username or email already exists." });
+      return res
+        .status(400)
+        .json({ error: "Username or email already exists." });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
