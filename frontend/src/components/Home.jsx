@@ -47,7 +47,7 @@ export default function Home({ loggedOut }) {
     } catch (error) {}
   };
   return (
-    <div className="dev-container">
+    <div className="container">
       <button className="logout-btn" onClick={logout}>
         Logout
       </button>

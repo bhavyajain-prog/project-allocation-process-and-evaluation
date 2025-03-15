@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const XLSX = require("xlsx");
-const asyncHandler = require("express-async-handler"); // Handles async errors gracefully
+const asyncHandler = require("express-async-handler");
 
 const Student = require("../models/Student");
 const Mentor = require("../models/Mentor");
@@ -59,7 +59,7 @@ router.post(
     const collectionMap = {
       student: Student,
       mentor: Mentor,
-      team: Team,
+      project: Project,
     };
 
     const Model = collectionMap[type];

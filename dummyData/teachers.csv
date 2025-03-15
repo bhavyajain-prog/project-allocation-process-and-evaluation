@@ -1,0 +1,60 @@
+empNo,name,department,designation,email
+5,Chothmal Choudhary,Computer Science and Engg.,Professor,chothmal.choudhary@skit.ac.in
+9,Mahender Kumar Beniwal,Computer Science and Engg.,Associate Prof.-1,mahender.kumar.beniwal@skit.ac.in
+11,Pankaj Dadheech,Computer Science and Engg.,Professor,pankaj.dadheech@skit.ac.in
+20,Aakriti Sharma,Computer Science and Engg.,Associate Prof.-2,aakriti.sharma@skit.ac.in
+22,Mehul Mahrishi,Computer Science and Engg.,Professor & HOD,mehul.mahrishi@skit.ac.in
+30,Harpreet Singh Gill,Computer Science and Engg.,Associate Prof.-1,harpreet.singh.gill@skit.ac.in
+39,Vinod Kataria,Computer Science and Engg.,Associate Prof.-1,vinod.kataria@skit.ac.in
+47,Sarabjeet Singh Sethi,Computer Science and Engg.,Associate Prof.-2,sarabjeet.singh.sethi@skit.ac.in
+160,Kailash Soni,Computer Science and Engg.,Associate Prof.-1,kailash.soni@skit.ac.in
+161,Ruchika Khandelwal,Computer Science and Engg.,Assistant Prof.-2,ruchika.khandelwal@skit.ac.in
+168,Anjana Sangwan,Computer Science and Engg.,Associate Prof.-2,anjana.sangwan@skit.ac.in
+180,Pratipal Singh,Computer Science and Engg.,Assistant Prof.-2,pratipal.singh@skit.ac.in
+625,Sunil Dhankhar,Computer Science and Engg.,Associate Prof.-2,sunil.dhankhar@skit.ac.in
+642,Kajal Mathur,Computer Science and Engg.,Associate Prof.-1,kajal.mathur@skit.ac.in
+654,Priyanka Sharma,Computer Science and Engg.,Assistant Prof.-2,priyanka.sharma@skit.ac.in
+693,Priyanka,Computer Science and Engg.,Assistant Prof.-2,priyanka@skit.ac.in
+806,Shanu Tripathi,Computer Science and Engg.,Assistant Prof.-2,shanu.tripathi@skit.ac.in
+813,Vinay Kanungo,Computer Science and Engg.,Associate Prof.-2,vinay.kanungo@skit.ac.in
+833,Nidhi Srivastav,Computer Science and Engg.,Associate Prof.-1,nidhi.srivastav@skit.ac.in
+852,Neha Mathur,Computer Science and Engg.,Assistant Prof.-2,neha.mathur@skit.ac.in
+856,Neeraj Garg,Computer Science and Engg.,Assistant Prof.-2,neeraj.garg@skit.ac.in
+859,Niketa Sharma,Computer Science and Engg.,Associate Prof.-2,niketa.sharma@skit.ac.in
+860,Yogendra Kumar Gupta,Computer Science and Engg.,Associate Prof.-1,yogendra.kumar.gupta@skit.ac.in
+876,Ashish Pant,Computer Science and Engg.,Assistant Prof.-2,ashish.pant@skit.ac.in
+880,Palika Jajoo,Computer Science and Engg.,Assistant Prof.-2,palika.jajoo@skit.ac.in
+894,Nilam,Computer Science and Engg.,Associate Prof.-2,nilam@skit.ac.in
+895,Meenakshi Nawal,Computer Science and Engg.,Associate Prof.-2,meenakshi.nawal@skit.ac.in
+914,Mani Butwall,Computer Science and Engg.,Assistant Prof.-2,mani.butwall@skit.ac.in
+915,Pawan Kumar Patidar,Computer Science and Engg.,Assistant Prof.-2,pawan.kumar.patidar@skit.ac.in
+917,Manish Bhardwaj,Computer Science and Engg.,Assistant Prof.-2,manish.bhardwaj@skit.ac.in
+920,Sumit Kumar,Computer Science and Engg.,Assistant Prof.-2,sumit.kumar@skit.ac.in
+921,Dinesh Kumar,Computer Science and Engg.,Assistant Prof.-2,dinesh.kumar@skit.ac.in
+922,Mamta Sakpal,Computer Science and Engg.(AI),Associate Prof.-1,mamta.sakpal@skit.ac.in
+923,Loveleen Kumar,Computer Science and Engg.,Assistant Prof.-2,loveleen.kumar@skit.ac.in
+925,Priya Gupta,Computer Science and Engg.(AI),Assistant Prof.-1,priya.gupta@skit.ac.in
+927,Allisa Goyal,Computer Science and Engg.(AI),Assistant Prof.-I,allisa.goyal@skit.ac.in
+928,Rajesh Rajaan,Computer Science and Engg.,Assistant Prof.-2,rajesh.rajaan@skit.ac.in
+929,Abha Jain,Computer Science and Engg.,Assistant Prof.-2,abha.jain@skit.ac.in
+935,Richa Sharma,Computer Science and Engg.(AI),Assistant Prof.-2,richa.sharma@skit.ac.in
+936,Vikram Khandelwal,Computer Science and Engg.,Assistant Prof.-1,vikram.khandelwal@skit.ac.in
+937,Sohan Lal Gupta,Computer Science and Engg.,Assistant Prof.-1,sohan.lal.gupta@skit.ac.in
+938,Shirish Nagar,Computer Science and Engg.,Assistant Prof.-2,shirish.nagar@skit.ac.in
+942,Barkha Jain,Computer Science and Engg.,Assistant Prof.-1,barkha.jain@skit.ac.in
+944,Megha Gupta,Computer Science and Engg.,Associate Prof.-2,megha.gupta@skit.ac.in
+947,Archika Jain,Computer Science and Engg.,Assistant Prof.,archika.jain@skit.ac.in
+948,Mithlesh Arya,Computer Science and Engg.,Associate Prof.-2,mithlesh.arya@skit.ac.in
+952,Rajesh Kumar,Computer Science and Engg.,Assistant Prof.-2,rajesh.kumar@skit.ac.in
+956,Manish Kumar Sharma,Computer Science and Engg.,Assistant Prof.-2,manish.kumar.sharma@skit.ac.in
+960,Arpita Sharma,Computer Science and Engg.,Assistant Prof.-2,arpita.sharma@skit.ac.in
+963,Maina Changeriwal,Computer Science and Engg.,Assistant Prof.-1,maina.changeriwal@skit.ac.in
+966,Kashifa Khan,Computer Science and Engg.,Assistant Prof.,kashifa.khan@skit.ac.in
+971,Suniti Chouhan,Computer Science and Engg.,Assistant Prof.-2,suniti.chouhan@skit.ac.in
+973,Garima Garg,Computer Science and Engg.,Assistant Prof.-2,garima.garg@skit.ac.in
+976,Abhishek Kumar,Computer Science and Engg.,Assistant Prof.-2,abhishek.kumar@skit.ac.in
+977,Neetu Agrawal,Computer Science and Engg.,Assistant Prof.-2,neetu.agrawal@skit.ac.in
+978,Kiran Ahuja,Computer Science and Engg.,Assistant Prof.-2,kiran.ahuja@skit.ac.in
+979,Kapil Sharma,Computer Science and Engg.,Assistant Professor of Practice,kapil.sharma@skit.ac.in
+980,Sudhey Sharma,Computer Science and Engg.,Professor of Practice,sudhey.sharma@skit.ac.in
+981,Vibhuti Mangal,Computer Science and Engg.,Associate Professor of Practice,vibhuti.mangal@skit.ac.in

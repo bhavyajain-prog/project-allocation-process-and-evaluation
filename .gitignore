@@ -82,5 +82,3 @@ dist-ssr
 /frontend/*.njsproj
 /frontend/*.sln
 /frontend/*.sw?
-
-/dummyData
