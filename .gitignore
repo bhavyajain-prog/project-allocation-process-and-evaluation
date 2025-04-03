@@ -76,9 +76,3 @@ dist-ssr
 /frontend/.vscode/*
 /frontend/!.vscode/extensions.json
 /frontend/.idea
-/frontend/.DS_Store
-/frontend/*.suo
-/frontend/*.ntvs*
-/frontend/*.njsproj
-/frontend/*.sln
-/frontend/*.sw?
