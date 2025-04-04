@@ -21,7 +21,7 @@ const dev = {
   role: "dev",
   name: "Developer",
 };
-// Addint the admin user
+// Adding the admin user
 const admin = {
   username: "admin",
   password: "admin123",
