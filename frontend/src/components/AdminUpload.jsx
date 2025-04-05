@@ -39,28 +39,54 @@ export default function AdminUpload() {
   };
 
   return (
-    <div className="container">
-      <h2 className="title">Admin Uploads</h2>
-      <div className="upload-section">
-        <label>Student</label>
-        <input type="file" onChange={(e) => handleFileChange(e, setFile1)} />
-        <button className="btn" onClick={() => uploadFile(file1, "student")}>
-          Upload Student File
-        </button>
-      </div>
-      <div className="upload-section">
-        <label>Mentor</label>
-        <input type="file" onChange={(e) => handleFileChange(e, setFile2)} />
-        <button className="btn" onClick={() => uploadFile(file2, "mentor")}>
-          Upload Mentor File
-        </button>
-      </div>
-      <div className="upload-section">
-        <label>Project Bank</label>
-        <input type="file" onChange={(e) => handleFileChange(e, setFile3)} />
-        <button className="btn" onClick={() => uploadFile(file3, "project")}>
-          Upload Project File
-        </button>
+    <div style={{ backgroundColor: "#f1f2f7" }} className="py-10">
+      <div className="w-[90%] md:w-1/2 bg-white p-6 rounded-lg mx-auto mt-5 shadow-md text-center">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Admin Uploads</h2>
+
+        <div className="flex flex-col items-center gap-2 mb-8">
+          <label className="text-lg font-bold text-gray-700">Student</label>
+          <input
+            type="file"
+            onChange={(e) => handleFileChange(e, setFile1)}
+            className="p-2 border border-teal-300 rounded w-full max-w-sm bg-gray-50 text-sm text-gray-700 hover:border-teal-500"
+          />
+          <button
+            onClick={() => uploadFile(file1, "student")}
+            className="mt-2 px-4 py-2 bg-teal-400 hover:bg-teal-500 text-white text-sm rounded transition duration-300"
+          >
+            Upload Student File
+          </button>
+        </div>
+
+        <div className="flex flex-col items-center gap-2 mb-8">
+          <label className="text-lg font-bold text-gray-700">Mentor</label>
+          <input
+            type="file"
+            onChange={(e) => handleFileChange(e, setFile2)}
+            className="p-2 border border-teal-300 rounded w-full max-w-sm bg-gray-50 text-sm text-gray-700 hover:border-teal-500"
+          />
+          <button
+            onClick={() => uploadFile(file2, "mentor")}
+            className="mt-2 px-4 py-2 bg-teal-400 hover:bg-teal-500 text-white text-sm rounded transition duration-300"
+          >
+            Upload Mentor File
+          </button>
+        </div>
+
+        <div className="flex flex-col items-center gap-2 mb-2">
+          <label className="text-lg font-bold text-gray-700">Project Bank</label>
+          <input
+            type="file"
+            onChange={(e) => handleFileChange(e, setFile3)}
+            className="p-2 border border-teal-300 rounded w-full max-w-sm bg-gray-50 text-sm text-gray-700 hover:border-teal-500"
+          />
+          <button
+            onClick={() => uploadFile(file3, "project")}
+            className="mt-2 px-4 py-2 bg-teal-400 hover:bg-teal-500 text-white text-sm rounded transition duration-300"
+          >
+            Upload Project File
+          </button>
+        </div>
       </div>
     </div>
   );

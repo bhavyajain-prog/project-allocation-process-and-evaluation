@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import logo from "./assets/logo.jpg";
 import axios from "axios";
 
 export default function CreateTeam() {
@@ -145,136 +144,156 @@ export default function CreateTeam() {
   };
 
   return (
-    <div>
-      <div className="logo-container">
-        <img src={logo} alt="Logo" className="logo" />
+    <div className="bg-[#f1f2f7] py-8">
+  <div className="w-[90%] md:w-1/2 bg-white p-6 rounded-lg mx-auto mt-10 shadow-md text-center">
+    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Project Details</h2>
+    <form onSubmit={createTeam} className="space-y-6 text-left">
+      <div className="space-y-2">
+        <label htmlFor="code" className="block text-gray-700 font-medium">Team Code:</label>
+        <input
+          type="text"
+          id="code"
+          value={code}
+          required
+          disabled
+          className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-teal-300 bg-gray-100"
+        />
       </div>
-      <div className="container">
-        <h2 className="title">Project Details</h2>
-        <form onSubmit={createTeam} className="form-container">
-          <div className="form-group">
-            <label htmlFor="code">Team Code: </label>
-            <input type="text" id="code" value={code} required disabled />
-          </div>
-          <div className="form-group">
-            <h3>Leader Details</h3>
-            <label htmlFor="leader-name">Leader Name: </label>
-            <input
-              type="text"
-              id="leader-name"
-              placeholder="Enter Leader Name"
-              value={formData.leader.name}
-              onChange={(e) => handleChange(e, "name")}
-            />
-            <br />
-            <label htmlFor="leader-email">Leader Email: </label>
-            <input
-              type="email"
-              id="leader-email"
-              placeholder="Enter Leader Email"
-              value={formData.leader.email}
-              onChange={(e) => handleChange(e, "email")}
-            />
-            <br />
-            <label htmlFor="leader-phone">Leader Phone: </label>
-            <input
-              type="text"
-              id="leader-phone"
-              placeholder="Enter Leader Phone"
-              value={formData.leader.phone}
-              onChange={(e) => handleChange(e, "phone")}
-            />
-            <br />
-            <label htmlFor="leader-rollNumber">Leader Roll Number: </label>
-            <input
-              type="text"
-              id="leader-rollNumber"
-              placeholder="Enter Roll Number"
-              value={formData.leader.rollNumber}
-              onChange={(e) => handleChange(e, "rollNumber")}
-            />
-            <br />
-            <label htmlFor="batch">Batch: </label>
-            <input
-              type="text"
-              id="batch"
-              placeholder="Enter batch"
-              value={formData.batch}
-              onChange={(e) => handleChange(e, "batch")}
-            />
-          </div>
-          <div className="form-group">
-            <h3>Project 1 Details</h3>
-            <label>Title: </label>
-            <input
-              type="text"
-              name="title"
-              placeholder="Enter Project 1 Title"
-              value={formData.project1.title}
-              onChange={(e) => handleChange(e, "project1")}
-            />
-            <br />
-            <label>Description: </label>
-            <textarea
-              name="description"
-              placeholder="Enter Project 1 Description"
-              value={formData.project1.description}
-              onChange={(e) => handleChange(e, "project1")}
-            />
-            <br />
-            <label>Technology: </label>
-            <input
-              type="text"
-              name="technology"
-              placeholder="Enter Project 1 Technology"
-              value={formData.project1.technology}
-              onChange={(e) => handleChange(e, "project1")}
-            />
-          </div>
-          <div className="form-group">
-            <h3>Project 2 Details</h3>
-            <label>Title: </label>
-            <input
-              type="text"
-              name="title"
-              placeholder="Enter Project 2 Title"
-              value={formData.project2.title}
-              onChange={(e) => handleChange(e, "project2")}
-            />
-            <br />
-            <label>Description: </label>
-            <textarea
-              name="description"
-              placeholder="Enter Project 2 Description"
-              value={formData.project2.description}
-              onChange={(e) => handleChange(e, "project2")}
-            />
-            <br />
-            <label>Technology: </label>
-            <input
-              type="text"
-              name="technology"
-              placeholder="Enter Project 2 Technology"
-              value={formData.project2.technology}
-              onChange={(e) => handleChange(e, "project2")}
-            />
-          </div>
-          <div className="form-group">
-            <h3>Mentor Selection</h3>
-            {[0, 1, 2].map((index) => (
-              <div key={index} className="mentor">
-                <label>Choice {index + 1}</label>
-                <Select
-                  value={formData.mentorChoices[index]}
-                  options={remainingMentors}
-                  onChange={(e) => handleChange(e, "mentorChoices", index)}
-                />
-              </div>
-            ))}
-          </div>
-          <button type="submit">Create Team</button>
-        </form>
+
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold text-gray-800">Leader Details</h3>
+        <label htmlFor="leader-name">Leader Name:</label>
+        <input
+          type="text"
+          id="leader-name"
+          placeholder="Enter Leader Name"
+          value={formData.leader.name}
+          onChange={(e) => handleChange(e, "name")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label htmlFor="leader-email">Leader Email:</label>
+        <input
+          type="email"
+          id="leader-email"
+          placeholder="Enter Leader Email"
+          value={formData.leader.email}
+          onChange={(e) => handleChange(e, "email")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label htmlFor="leader-phone">Leader Phone:</label>
+        <input
+          type="text"
+          id="leader-phone"
+          placeholder="Enter Leader Phone"
+          value={formData.leader.phone}
+          onChange={(e) => handleChange(e, "phone")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label htmlFor="leader-rollNumber">Leader Roll Number:</label>
+        <input
+          type="text"
+          id="leader-rollNumber"
+          placeholder="Enter Roll Number"
+          value={formData.leader.rollNumber}
+          onChange={(e) => handleChange(e, "rollNumber")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label htmlFor="batch">Batch:</label>
+        <input
+          type="text"
+          id="batch"
+          placeholder="Enter Batch"
+          value={formData.batch}
+          onChange={(e) => handleChange(e, "batch")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
       </div>
-    </div>
+
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold text-gray-800">Project 1 Details</h3>
+        <label>Title:</label>
+        <input
+          type="text"
+          name="title"
+          placeholder="Enter Project 1 Title"
+          value={formData.project1.title}
+          onChange={(e) => handleChange(e, "project1")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label>Description:</label>
+        <textarea
+          name="description"
+          placeholder="Enter Project 1 Description"
+          value={formData.project1.description}
+          onChange={(e) => handleChange(e, "project1")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label>Technology:</label>
+        <input
+          type="text"
+          name="technology"
+          placeholder="Enter Project 1 Technology"
+          value={formData.project1.technology}
+          onChange={(e) => handleChange(e, "project1")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold text-gray-800">Project 2 Details</h3>
+        <label>Title:</label>
+        <input
+          type="text"
+          name="title"
+          placeholder="Enter Project 2 Title"
+          value={formData.project2.title}
+          onChange={(e) => handleChange(e, "project2")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label>Description:</label>
+        <textarea
+          name="description"
+          placeholder="Enter Project 2 Description"
+          value={formData.project2.description}
+          onChange={(e) => handleChange(e, "project2")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+        <label>Technology:</label>
+        <input
+          type="text"
+          name="technology"
+          placeholder="Enter Project 2 Technology"
+          value={formData.project2.technology}
+          onChange={(e) => handleChange(e, "project2")}
+          className="w-full px-4 py-2 border border-gray-300 rounded"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold text-gray-800">Mentor Selection</h3>
+        {[0, 1, 2].map((index) => (
+          <div key={index} className="mb-2">
+            <label className="block mb-1">Choice {index + 1}</label>
+            <Select
+              value={formData.mentorChoices[index]}
+              options={remainingMentors}
+              onChange={(e) => handleChange(e, "mentorChoices", index)}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="text-center">
+        <button
+          type="submit"
+          className="px-6 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded shadow"
+        >
+          Create Team
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
   );
 }

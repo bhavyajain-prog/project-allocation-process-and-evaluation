@@ -1,49 +1,39 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default function AdminPortal({ loggedOut }) {
-  const navigate = useNavigate();
-  const logout = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/logout",
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 200) {
-        localStorage.removeItem("role");
-        await loggedOut();
-        navigate("/login");
-      }
-    } catch (error) {}
-  };
-
+export default function AdminPortal() {
   return (
-    <>
-      <div className="container mw-500">
-        <button className="logout-btn" onClick={logout}>
-          Logout
-        </button>
-        <div className="title">
-          <h2>Admin Portal</h2>
-        </div>
-        <div className="link-group">
-          <Link className="btn" to="/mentorstatusadmin">
+    <div className="bg-[#f1f2f7] flex items-center justify-center">
+      {/* Admin Portal Content */}
+      <div className="text-center mt-30">
+        <h2 className="text-[2rem] font-semibold mb-8">Admin Portal</h2>
+        <div className="space-y-8">
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/mentorstatusadmin"
+          >
             Mentor Status
           </Link>
-          <Link className="btn" to="/adminteamoverview">
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/adminteamoverview"
+          >
             Team Status
           </Link>
-          <Link className="btn" to="/documentapproval">
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/documentapproval"
+          >
             Approve Docs
           </Link>
-          <Link className="btn" to="/adminuploadsection">
-            Upload docs
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/adminuploadsection"
+          >
+            Upload Docs
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

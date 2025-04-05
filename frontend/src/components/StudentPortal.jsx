@@ -20,18 +20,28 @@ function StudentPortal({ loggedOut }) {
     } catch (error) {}
   };
   return (
-    <div>
-      <div className="container mw-500">
-        <button className="logout-btn" onClick={logout}>
-          Logout
-        </button>
-        <h2 className="title">Dashboard</h2>
-        <div className="link-group">
-          <Link to="/join-team">My Team</Link>
-          <Link to="/create-team">Create the team</Link>
-        </div>
-      </div>
+    <div className="flex justify-center items-center px-4 mt-35">
+  <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md text-center">
+    
+    <h2 className="text-2xl font-semibold text-gray-800 mb-8">Dashboard</h2>
+    
+    <div className="flex flex-col gap-5">
+      <Link
+        to="/join-team"
+        className="bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-md shadow text-lg font-medium"
+      >
+        My Team
+      </Link>
+      <Link
+        to="/create-team"
+        className="bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-md shadow text-lg font-medium"
+      >
+        Create the team
+      </Link>
     </div>
+  </div>
+</div>
+
   );
 }
 

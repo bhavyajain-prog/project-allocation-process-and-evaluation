@@ -76,3 +76,5 @@ dist-ssr
 /frontend/.vscode/*
 /frontend/!.vscode/extensions.json
 /frontend/.idea
+
+backend/package-lock.json

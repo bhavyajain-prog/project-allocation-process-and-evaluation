@@ -21,13 +21,38 @@ export default function ResetPassword() {
       });
   };
   return (
-    <div className="container">
-      <h2>Reset Password</h2>
-      <label>New Password</label>
-      <input type="password" placeholder="Enter new password" />
-      <label>Confirm Password</label>
-      <input type="password" placeholder="Confirm new password" />
-      <button onClick={resetPass}>Reset</button>
+    <div className="flex items-center justify-center px-4 mt-30">
+  <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+    <h2 className="text-2xl font-bold text-center mb-6">Reset Password</h2>
+    
+    <div className="space-y-4">
+      <div>
+        <label className="block text-gray-700 mb-1">New Password</label>
+        <input
+          type="password"
+          placeholder="Enter new password"
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-200"
+        />
+      </div>
+
+      <div>
+        <label className="block text-gray-700 mb-1">Confirm Password</label>
+        <input
+          type="password"
+          placeholder="Confirm new password"
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-200"
+        />
+      </div>
+
+      <button
+        onClick={resetPass}
+        className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 rounded-md shadow"
+      >
+        Reset
+      </button>
     </div>
+  </div>
+</div>
+
   );
 }
