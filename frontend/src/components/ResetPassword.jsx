@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios from "../api/axios";
 
 export default function ResetPassword() {
   const resetPass = async () => {
@@ -12,7 +12,7 @@ export default function ResetPassword() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     await axios
-      .post("http://localhost:5000/api/auth/reset-password", { token, "newPassword" : newPass })
+      .post("/auth/reset-password", { token, "newPassword" : newPass })
       .then((res) => {
       alert(res.data.message);
       })

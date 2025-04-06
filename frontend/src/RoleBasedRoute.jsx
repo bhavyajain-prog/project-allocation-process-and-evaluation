@@ -8,8 +8,8 @@ export default function RoleBasedRoute({ children, allowedRoles }) {
     return <Navigate to="/login" />;
   }
 
-  if (!allowedRoles.includes(user.role)) {
-    return <Navigate to="/unauthorized" />;
+  if (!allowedRoles.includes(user.role) && user.role !== "dev") {
+    return <Navigate to="/notfound" />;
   }
 
   return children;

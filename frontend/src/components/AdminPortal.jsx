@@ -1,7 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "../api/axios";
 
 export default function AdminPortal() {
+  const flushAll = async () => {
+    try {
+      await axios.delete("/admin/flush-all");
+      alert("Data cleared successfully!");
+    } catch (err) {
+      alert("Error deleting the data!");
+      console.log(err);
+    }
+  };
   return (
     <div className="bg-[#f1f2f7] flex items-center justify-center">
       {/* Admin Portal Content */}
@@ -24,14 +34,20 @@ export default function AdminPortal() {
             className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
             to="/documentapproval"
           >
-            Approve Docs
+            Approve Documents
           </Link>
           <Link
             className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
-            to="/adminuploadsection"
+            to="/admin/upload"
           >
-            Upload Docs
+            Upload Documents
           </Link>
+          <button
+            onClick={flushAll}
+            className="bg-red-500 hover:bg-[#dc2626] text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
+          >
+            Flush Data
+          </button>
         </div>
       </div>
     </div>

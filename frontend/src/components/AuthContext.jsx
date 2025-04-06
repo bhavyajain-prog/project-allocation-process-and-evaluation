@@ -1,17 +1,19 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/auth/me", {
+        const res = await axios.get("/auth/me", {
           withCredentials: true,
         });
         if (res.data.user) {
@@ -21,14 +23,18 @@ export function AuthProvider({ children }) {
         }
       } catch (error) {
         navigate("/login");
+      } finally {
+        setLoading(false);
       }
     };
     checkAuth();
   }, [navigate]);
 
+  console.log(user);
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {children}
+      {loading ? <Loading /> : children}
     </AuthContext.Provider>
   );
 }

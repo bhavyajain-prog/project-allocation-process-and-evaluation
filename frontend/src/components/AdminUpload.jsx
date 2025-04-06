@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 
 export default function AdminUpload() {
   const [file1, setFile1] = useState(null);
@@ -21,14 +21,10 @@ export default function AdminUpload() {
     formData.append("type", endpoint);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/admin/upload",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post("/admin/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
       alert(response.data.message || "File uploaded successfully.");
     } catch (error) {
       alert(
@@ -41,7 +37,9 @@ export default function AdminUpload() {
   return (
     <div style={{ backgroundColor: "#f1f2f7" }} className="py-10">
       <div className="w-[90%] md:w-1/2 bg-white p-6 rounded-lg mx-auto mt-5 shadow-md text-center">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Admin Uploads</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          Admin Uploads
+        </h2>
 
         <div className="flex flex-col items-center gap-2 mb-8">
           <label className="text-lg font-bold text-gray-700">Student</label>
@@ -54,7 +52,7 @@ export default function AdminUpload() {
             onClick={() => uploadFile(file1, "student")}
             className="mt-2 px-4 py-2 bg-teal-400 hover:bg-teal-500 text-white text-sm rounded transition duration-300"
           >
-            Upload Student File
+            Upload Student Data
           </button>
         </div>
 
@@ -69,12 +67,14 @@ export default function AdminUpload() {
             onClick={() => uploadFile(file2, "mentor")}
             className="mt-2 px-4 py-2 bg-teal-400 hover:bg-teal-500 text-white text-sm rounded transition duration-300"
           >
-            Upload Mentor File
+            Upload Mentor Data
           </button>
         </div>
 
         <div className="flex flex-col items-center gap-2 mb-2">
-          <label className="text-lg font-bold text-gray-700">Project Bank</label>
+          <label className="text-lg font-bold text-gray-700">
+            Project Bank
+          </label>
           <input
             type="file"
             onChange={(e) => handleFileChange(e, setFile3)}
@@ -84,7 +84,7 @@ export default function AdminUpload() {
             onClick={() => uploadFile(file3, "project")}
             className="mt-2 px-4 py-2 bg-teal-400 hover:bg-teal-500 text-white text-sm rounded transition duration-300"
           >
-            Upload Project File
+            Upload Project Bank
           </button>
         </div>
       </div>

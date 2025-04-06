@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import axios from "axios";
+import axios from "../api/axios";
 
 export default function CreateTeam() {
   const [code, setCode] = useState("");
@@ -31,12 +31,12 @@ export default function CreateTeam() {
     const fetchCodeAndMentors = async () => {
       try {
         const codeResponse = await axios.get(
-          "http://localhost:5000/api/team/code"
+          "/team/code"
         );
         setCode(codeResponse.data.code);
 
         const mentorResponse = await axios.get(
-          "http://localhost:5000/api/mentor/name"
+          "/mentor/name"
         );
         const mentors = mentorResponse.data.mentors.map((mentor) => ({
           label: mentor.name,

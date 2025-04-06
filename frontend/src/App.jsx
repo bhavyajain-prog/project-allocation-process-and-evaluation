@@ -11,40 +11,25 @@ import StudentPortal from "./components/StudentPortal";
 import MentorPortal from "./components/MentorPortal";
 import AdminPortal from "./components/AdminPortal";
 import Home from "./components/Home";
-import Unauthorized from "./components/NotFound";
-import Upload from "./components/AdminUpload";
-import CreateTeam from "./components/CreateTeam";
-import ForgotPassword from "./components/ForgotPassword";
-import JoinTeam from "./components/JoinTeam";
+import NotFound from "./components/NotFound";
 import Register from "./components/Register";
-import ResetPassword from "./components/ResetPassword";
-import SelectTeams from "./components/SelectTeams";
+import Redirect from "./components/Redirect";
+import Upload from "./components/AdminUpload";
 
 import RoleBasedRoute from "./RoleBasedRoute";
 
 import "./App.css";
 
 export default function App() {
-  // // Temporary preview: only show Header + AdminPortal
-  // return (
-  //   <Router>
-  //     <AuthProvider>
-  //     <Header />
-  //     <StudentPortal />
-  //     </AuthProvider>
-  //   </Router>
-  // );
-
-  // Full project routing logic (uncomment when ready)
   return (
     <Router>
-      <Header />
       <AuthProvider>
+        <Header />
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/" element={<Redirect />} />
+          <Route path="/notfound" element={<NotFound />} />
 
           {/* Dev Role */}
           <Route
@@ -52,6 +37,14 @@ export default function App() {
             element={
               <RoleBasedRoute allowedRoles={["dev"]}>
                 <Home />
+              </RoleBasedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RoleBasedRoute allowedRoles={["dev", "admin"]}>
+                <Register />
               </RoleBasedRoute>
             }
           />
@@ -95,7 +88,7 @@ export default function App() {
           />
 
           {/* Fallback */}
-          <Route path="*" element={<Navigate to="/unauthorized" />} />
+          <Route path="*" element={<Navigate to="/notfound" />} />
         </Routes>
       </AuthProvider>
     </Router>
