@@ -2,21 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 
-function MentorPortal({ loggedOut }) {
-  const navigate = useNavigate();
-  const logout = async () => {
-    try {
-      const response = await axios.get("/auth/logout", {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        localStorage.removeItem("role");
-        await loggedOut();
-        navigate("/login");
-      }
-    } catch (error) {}
-  };
-
+export default function MentorPortal() {
   return (
     <>
       <div className="bg-gray-100 flex flex-col items-center justify-center px-4 mt-40">
@@ -26,7 +12,7 @@ function MentorPortal({ loggedOut }) {
         {/* Links */}
         <div className="flex flex-col gap-7 w-50">
           <Link
-            to="/select-teams"
+            to="/mentor/teams"
             className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 rounded-md text-center shadow"
           >
             Team Selection
@@ -48,5 +34,3 @@ function MentorPortal({ loggedOut }) {
     </>
   );
 }
-
-export default MentorPortal;

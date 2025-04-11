@@ -1,41 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 export default function JoinTeam() {
   const [code, setCode] = useState("");
+  const { user } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkTeam = async () => {
-      try {
-        const response = await axios.get(
-          "/team/get-team",
-          { withCredentials: true }
-        );
-        if (response.status === 500) {
-          alert("Server error!");
-        }
-        if (response.status === 200) {
-          navigate("/myTeam");
-        }
-      } catch (err) {}
-    };
-
-    checkTeam();
-  }, [navigate]);
 
   const joinTeam = async () => {
     try {
       const res = await axios.post(
         "/team/join",
-        {
-          code,
-        },
+        { code, user },
         { withCredentials: true }
       );
 
-      navigate("/myTeam");
+      navigate("/my-team");
     } catch (err) {
       console.error("Failed to join team:", err);
       alert("Failed to join team. Please check the team code and try again.");

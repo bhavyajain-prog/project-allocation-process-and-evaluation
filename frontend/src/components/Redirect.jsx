@@ -1,11 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import Loading from "./Loading";
 
 export default function Redirect() {
-  const { user } = useAuth();
-  console.log("Redirecting for user:", user);
+  const { user, loading } = useAuth();
 
-  if (!user) return null; // Let loading screen handle this
+  if (loading) return <Loading />;
+  if (!user) return <Navigate to="/login" />;
 
   switch (user.role) {
     case "admin":

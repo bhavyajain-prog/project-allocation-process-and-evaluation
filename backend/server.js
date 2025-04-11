@@ -4,10 +4,17 @@ const connectDB = require("./config/db");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
+const fs = require("fs");
 const cookieParser = require("cookie-parser");
+const insertUsers = require("./utils/insertSpecialUsers");
 
 dotenv.config();
-connectDB();
+connectDB().then(() => {
+  insertUsers();
+});
+
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
 const app = express();
 
@@ -53,3 +60,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+// TODO: Leave team and Manual Allocation

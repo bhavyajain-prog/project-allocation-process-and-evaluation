@@ -15,10 +15,17 @@ import NotFound from "./components/NotFound";
 import Register from "./components/Register";
 import Redirect from "./components/Redirect";
 import Upload from "./components/AdminUpload";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+import CreateTeam from "./components/CreateTeam";
 
 import RoleBasedRoute from "./RoleBasedRoute";
 
 import "./App.css";
+import MyTeam from "./components/MyTeam";
+import JoinTeam from "./components/JoinTeam";
+import ViewTeams from "./components/ViewTeams";
+import ManualAllocation from "./components/ManualAllocation";
 
 export default function App() {
   return (
@@ -30,6 +37,8 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Redirect />} />
           <Route path="/notfound" element={<NotFound />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Dev Role */}
           <Route
@@ -68,7 +77,14 @@ export default function App() {
               </RoleBasedRoute>
             }
           />
-
+          <Route
+            path="/mentor/teams"
+            element={
+              <RoleBasedRoute allowedRoles={["mentor"]}>
+                <ViewTeams mode="mentor" />
+              </RoleBasedRoute>
+            }
+          />
           {/* Admin */}
           <Route
             path="/admin/home"
@@ -86,6 +102,46 @@ export default function App() {
               </RoleBasedRoute>
             }
           />
+          <Route
+            path="/admin/teams"
+            element={
+              <RoleBasedRoute allowedRoles={["admin"]}>
+                <ViewTeams />
+              </RoleBasedRoute>
+            }
+          />
+          <Route
+            path="/admin/manage/teams"
+            element={
+              <RoleBasedRoute allowedRoles={["admin"]}>
+                <ManualAllocation />
+              </RoleBasedRoute>
+            }
+          />
+          <Route
+            path="/create-team"
+            element={
+              <RoleBasedRoute allowedRoles={["student"]}>
+                <CreateTeam />
+              </RoleBasedRoute>
+            }
+          />
+          <Route
+            path="/join-team"
+            element={
+              <RoleBasedRoute allowedRoles={["student"]}>
+                <JoinTeam />
+              </RoleBasedRoute>
+            }
+          />
+          <Route
+            path="/my-team"
+            element={
+              <RoleBasedRoute allowedRoles={["student"]}>
+                <MyTeam />
+              </RoleBasedRoute>
+            }
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/notfound" />} />
@@ -94,3 +150,4 @@ export default function App() {
     </Router>
   );
 }
+// TODO: Global variables for timing of particular stages

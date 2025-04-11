@@ -20,27 +20,33 @@ export default function AdminPortal() {
         <div className="space-y-8">
           <Link
             className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
-            to="/mentorstatusadmin"
-          >
-            Mentor Status
-          </Link>
-          <Link
-            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
-            to="/adminteamoverview"
-          >
-            Team Status
-          </Link>
-          <Link
-            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
-            to="/documentapproval"
-          >
-            Approve Documents
-          </Link>
-          <Link
-            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
             to="/admin/upload"
           >
-            Upload Documents
+            Upload Data
+          </Link>
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/admin/teams"
+          >
+            Approve Teams
+          </Link>
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/admin/manage/mentors"
+          >
+            Manage Mentors
+          </Link>
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/admin/manage/students"
+          >
+            Manage Students
+          </Link>
+          <Link
+            className="block bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded shadow"
+            to="/admin/manage/teams"
+          >
+            Manage Teams
           </Link>
           <button
             onClick={flushAll}

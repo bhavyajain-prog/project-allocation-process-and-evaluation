@@ -3,11 +3,15 @@ const multer = require("multer");
 const XLSX = require("xlsx");
 const asyncHandler = require("express-async-handler");
 const path = require("path");
+const fs = require("fs");
+const bcrypt = require("bcrypt");
+const insertUsers = require("../utils/insertSpecialUsers");
 
 const Student = require("../models/Student");
 const Mentor = require("../models/Mentor");
 const Team = require("../models/Team");
 const Project = require("../models/ProjectBank");
+const User = require("../models/User");
 
 const router = express.Router();
 
@@ -17,6 +21,7 @@ const collectionMap = {
   mentor: Mentor,
   team: Team,
   project: Project,
+  user: User,
 };
 
 // Multer config
@@ -111,6 +116,11 @@ router.post(
 
       await User.insertMany(userDocs);
     }
+
+    fs.unlink(filePath, (err) => {
+      if (err) console.error(err);
+    });
+
     res.status(200).json({ message: `${type} data uploaded successfully.` });
   })
 );
@@ -126,7 +136,13 @@ router.delete(
       return res.status(400).json({ error: "Invalid collection type" });
     }
 
-    await Model.deleteMany({});
+    if (type === "user") {
+      await User.deleteMany({ role: { $nin: ["dev", "admin"] } });
+      await insertUsers();
+    } else {
+      await Model.deleteMany({});
+    }
+
     res
       .status(200)
       .json({ message: `${type} collection deleted successfully.` });
@@ -137,12 +153,61 @@ router.delete(
 router.delete(
   "/flush-all",
   asyncHandler(async (_, res) => {
-    const deletions = ["student", "mentor", "team"].map((key) =>
-      collectionMap[key].deleteMany({})
+    await Promise.all(
+      ["student", "mentor", "team", "project"].map((key) =>
+        collectionMap[key].deleteMany({})
+      )
     );
+    await User.deleteMany({ role: { $nin: ["dev", "admin"] } });
+    await insertUsers();
 
-    await Promise.all(deletions);
     res.status(200).json({ message: "All collections deleted successfully." });
+  })
+);
+
+// Manual Allocation of teams
+router.post(
+  "/allocate/:code/:mentorID",
+  asyncHandler(async (req, res) => {
+    const { code, mentorID } = req.params;
+    const { user } = req.body;
+    if (!user || user.role !== "admin") {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+    const team = await Team.findOne({ code });
+    if (!team) {
+      return res.status(404).json({ message: "Team not found." });
+    }
+    if (team.requiresAdmin) {
+      return res.status(400).json({ message: "Approve the team first." });
+    }
+    if (team.confirmedMentor) {
+      return res.status(400).json({ message: "Team already has a mentor" });
+    }
+    if (team.currentChoiceIndex !== -1) {
+      team.populate("mentorChoices");
+      return res.status(400).json({
+        message: "Mentors aer yet to approve this team",
+        mentors: team.mentorChoices,
+        flag: team.currentChoiceIndex,
+      });
+    }
+    const mentor = await Mentor.findById(mentorID);
+    if (!mentor) {
+      return res.status(404).json({ message: "Mentor not found." });
+    }
+    if (mentor.teams.length >= 3) {
+      return res
+        .status(400)
+        .json({ message: "Mentor can not have more then 3 teams." });
+    }
+
+    team.confirmedMentor = mentorID;
+    mentor.teams.push(team.code);
+
+    await team.save();
+
+    res.status(200).json({ message: "Mentor allocated successfully!" });
   })
 );
 

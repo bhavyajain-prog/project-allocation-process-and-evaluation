@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
           navigate("/login");
         }
       } catch (error) {
-        navigate("/login");
+        // navigate("/login");
       } finally {
         setLoading(false);
       }
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
   console.log(user);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, loading }}>
       {loading ? <Loading /> : children}
     </AuthContext.Provider>
   );

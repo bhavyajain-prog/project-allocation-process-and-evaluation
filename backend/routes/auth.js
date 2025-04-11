@@ -99,11 +99,13 @@ router.post("/forgot-password", async (req, res) => {
       subject: "Password Reset Link",
       html: `
         <h2>Click the link below to reset your password:</h2>
-        <a href="${process.env.CLIENT_URL}/reset-password/${resetToken}">Reset Password</a>
+        <a href="${process.env.CLIENT_URL}/reset-password?token=${resetToken}">Reset Password</a>
       `,
     };
 
     await transporter.sendMail(mailOptions);
+    console.log("Mail sent!");
+
     res
       .status(200)
       .json({ message: "Password reset link sent to your email." });

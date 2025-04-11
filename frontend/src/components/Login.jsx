@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import axios from "../api/axios";
 
@@ -86,12 +86,12 @@ export default function Login() {
               />
               Remember Me
             </label>
-            <a
-              href="/forgot-password"
+            <Link
+              to="/forgot-password"
               className="text-teal-600 hover:underline"
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           <button
