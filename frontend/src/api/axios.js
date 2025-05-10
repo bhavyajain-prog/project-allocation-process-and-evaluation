@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  /*import.meta.env.BASE_URL || */
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.BASE_URL,
   withCredentials: true,
 });
 
