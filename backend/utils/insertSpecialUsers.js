@@ -18,7 +18,7 @@ const insertSpecialUsers = async () => {
       password: hashedAdminPass,
       email: "erp@skit.ac.in",
       role: "admin",
-      name: "Admin",
+      name: "Administrator",
     },
   ];
 

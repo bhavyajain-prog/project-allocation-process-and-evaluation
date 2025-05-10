@@ -18,24 +18,9 @@ if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
 const app = express();
 
-// const allowedOrigins = ["http://localhost:5173", process.env.CLIENT_URL];
-
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS: " + origin));
-//       }
-//     },
-//     credentials: true,
-//   })
-// );
-
 app.use(
   cors({
-    origin: true, // Reflect request origin
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
@@ -60,6 +45,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-// TODO: Leave team and Manual Allocation
